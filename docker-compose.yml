@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  nginx:
+    container_name: nginx-proxy
+    build: ./nginx
+    ports:
+      - 80:80
+  backend:
+    container_name: portfolio-server
+    # env_file:
+    #     "./backend/backend.env"
+    build:
+      context: ./portfolio-nestjs
+      dockerfile: ./Dockerfile
+    ports:
+      - "3001:3001"
+  frontend:
+    container_name: portfolio-ui
+    build:
+      context: ./portfolio-nextjs
+      dockerfile: ./Dockerfile
+    ports:
+      - "3000:3000"
+    links:
+      - backend
+    depends_on:
+      - backend
