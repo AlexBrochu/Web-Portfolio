@@ -1,0 +1,21 @@
+version: 2
+updates:
+  # Configuration for Dockerfile
+  - package-ecosystem: "docker"
+    directory: "/nginx"
+    schedule:
+      interval: "weekly"
+      # Disable all pull requests for Docker dependencies
+    open-pull-requests-limit: 0
+
+  # Configuration for npm
+  - package-ecosystem: "npm"
+    directory: "/portfolio-nestjs"
+    schedule:
+      interval: "weekly"
+
+  # Configuration for npm
+  - package-ecosystem: "npm"
+    directory: "/portfolio-nextjs"
+    schedule:
+      interval: "weekly"
