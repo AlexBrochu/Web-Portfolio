@@ -1,22 +1,16 @@
-import { useCallback, useEffect, useState } from "react";
 import Head from "next/head";
 import Layout, { siteTitle } from "../components/layout";
 import utilStyles from "../styles/utils.module.scss";
 import { getSortedPostsData } from "../lib/posts";
-import Link from "next/link";
-import Date from "../components/date";
 import { GetServerSideProps } from "next";
 import HelloHandler from "../api/hello";
+import Post, { PostData } from "../components/post/post";
 
 export default function Home({
   allPostsData,
   data,
 }: {
-  allPostsData: {
-    date: string;
-    title: string;
-    id: string;
-  }[];
+  allPostsData: PostData[];
   data: any;
 }) {
   console.log("in component", data);
@@ -36,15 +30,7 @@ export default function Home({
         <h2 className={utilStyles.headingLg}>Blog</h2>
         <ul className={utilStyles.list}>
           {allPostsData.map(({ id, date, title }) => (
-            <li className={utilStyles.listItem} key={id}>
-              <Link href={`/posts/${id}`}>
-                <a>{title}</a>
-              </Link>
-              <br />
-              <small className={utilStyles.lightText}>
-                <Date dateString={date} />
-              </small>
-            </li>
+            <Post id={id} date={date} title={title} />
           ))}
         </ul>
       </section>
