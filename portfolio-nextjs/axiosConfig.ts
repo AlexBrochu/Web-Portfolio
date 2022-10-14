@@ -1,8 +1,8 @@
 import axios from "axios";
-import { environment } from "./config/environment";
-// TODO use environment to set baseURL
+console.log(process.env.PORTFOLIO_BASE_URL);
+
 const instance = axios.create({
-  baseURL: "http://nginx-proxy",
+  baseURL: process.env.PORTFOLIO_BASE_URL,
 });
 
 export default instance;
