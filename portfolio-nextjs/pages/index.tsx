@@ -5,31 +5,36 @@ import { getSortedPostsData } from "../lib/posts";
 import { GetServerSideProps } from "next";
 import HelloHandler from "../api/hello";
 import Post, { PostData } from "../components/post/post";
+import Link from "next/link";
 
-export default function Home({
-  allPostsData,
-  data,
-}: {
+export type HomeProps = {
   allPostsData: PostData[];
-  data: any;
-}) {
-  console.log("in component", data);
+  data: string;
+};
+
+export default function Home(props: HomeProps) {
+  console.log("in component", props.data);
   return (
     <Layout home>
       <Head>
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
-        <p>[Your Self Introduction] {data}</p>
+        <p>[Your Self Introduction] {props.data}</p>
         <p>
           (This is a sample website - you’ll be building a site like this in{" "}
           <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
         </p>
       </section>
+      <section>
+        <h3>
+          <Link href="./timeline">Timeline</Link>
+        </h3>
+      </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Blog</h2>
         <ul className={utilStyles.list}>
-          {allPostsData.map(({ id, date, title }) => (
+          {props.allPostsData.map(({ id, date, title }) => (
             <Post id={id} date={date} title={title} />
           ))}
         </ul>
